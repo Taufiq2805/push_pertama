@@ -59,33 +59,45 @@
                     <div class="tabs-header d-flex justify-content-between border-bottom my-5">
                         <h3>Produk</h3>
                     </div>
+
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
                             <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
                                 @foreach ($products as $item)
                                 <div class="col">
                                     <div class="product-item">
-                                        <a href="#" class="btn-wishlist"><svg width="24" height="24">
+                                        <a href="#" class="btn-wishlist">
+                                            <svg width="24" height="24">
                                                 <use xlink:href="#heart"></use>
-                                            </svg></a>
+                                            </svg>
+                                        </a>
+
                                         <figure>
                                             <a href="#" title="Product Title">
-                                                <img src="{{ asset('storage/'.$item->gambar) }}" class="tab-image" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px;">
+                                                <img src="{{ asset('storage/'.$item->gambar) }}" class="tab-image" alt="{{ $item->nama }}">
                                             </a>
                                         </figure>
+
                                         <h3>{{ $item->nama }}</h3>
                                         <span class="qty">Kategori</span>
-                                        <span class="rating"><svg width="10" height="10" class="text-primary"></svg>{{ $item->category->category }}</span>
+                                        <span class="rating">
+                                            <svg width="10" height="10" class="text-primary"></svg>
+                                            {{ $item->category->category }}
+                                        </span>
                                         <span class="price">Rp. {{ number_format($item->harga, 0, ',', '.') }}</span>
+
                                         <form action="{{ route('order.create') }}" method="POST" class="mt-2" style="{{ $item->stok == 0 ? 'display: none;' : '' }}">
                                             @csrf
                                             <input type="hidden" name="items[0][product_id]" value="{{ $item->id }}">
+
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="input-group product-qty" style="max-width: 120px;">
                                                     <input type="number" name="items[0][quantity]" class="form-control input-number" value="1" min="1" max="{{ $item->stok }}" required>
                                                 </div>
+
                                                 <button type="submit" class="btn btn-sm btn-primary">
-                                                    Masukan ke Keranjang <svg width="16" height="16">
+                                                    Masukan ke Keranjang
+                                                    <svg width="16" height="16">
                                                         <use xlink:href="#cart"></use>
                                                     </svg>
                                                 </button>

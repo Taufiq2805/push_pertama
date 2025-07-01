@@ -105,7 +105,7 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->gambar = $gambarPath;
             $product->save();
-           return redirect()->route('admin.product.index')->with('success', 'Product created succesfully');
+           return redirect()->route('admin.product.index')->with('success', 'Product edit succesfully');
     }
 
     /**

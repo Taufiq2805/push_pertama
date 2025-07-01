@@ -23,13 +23,13 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view){
             if (Auth::check()) {
-                $latestOrder = Order::with(['orderProduct.product'])
+                $latestOrders = Order::with(['orderProduct.product'])
                 ->where('user_id', Auth::id())
                 ->where('status', 'pending')
                 ->latest()
                 ->first();
 
-                $view->with('latesOrder, $latestOrder');
+                $view->with('latestOrders', $latestOrders);
             }
         });
     }
